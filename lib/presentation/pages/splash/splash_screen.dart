@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
 import 'package:medical_management_app/presentation/pages/login/login_screen.dart';
 import 'package:medical_management_app/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -10,10 +13,18 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(Duration(milliseconds: 500), () {
-      Utils.navigateToReplacement(context, LoginScreen());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _checkAuth();
     });
     super.initState();
+  }
+
+  void _checkAuth() {
+    final user = context.read<User>();
+    if (user != null) {
+      return Utils.navigateToReplacement(context, LoginScreen());
+    }
+    return Utils.navigateToReplacement(context, HomeScreen());
   }
 
   @override
