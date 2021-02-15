@@ -2,6 +2,8 @@ class StringResources {
   static const String appName = 'CoYns';
 
   static const String logIn = 'Iniciar sesión';
+  static const String register = 'Registrarse';
+  static const String signInWighGoogle = 'Iniciar sesión con Google';
   static const String singUp = 'Crear cuenta';
   static const String authenticate = 'Autenticar sesión';
   static const String areYouNew = '¿Eres nuevo?';

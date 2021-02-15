@@ -22,9 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void _checkAuth() {
     final user = context.read<User>();
     if (user != null) {
-      return Utils.navigateToReplacement(context, LoginScreen());
+      return Utils.navigateToReplacement(context, HomeScreen());
     }
-    return Utils.navigateToReplacement(context, HomeScreen());
+    return Utils.navigateToReplacement(context, LoginScreen());
   }
 
   @override
