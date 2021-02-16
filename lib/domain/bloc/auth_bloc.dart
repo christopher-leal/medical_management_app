@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -5,8 +6,9 @@ import 'package:medical_management_app/domain/repositories/auth_firebase_interfa
 
 class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
   final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
 
-  AuthBloc(this._firebaseAuth);
+  AuthBloc(this._firebaseAuth, this._firestore);
 
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
@@ -24,7 +26,7 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
   }
 
   @override
-  Future<bool> logout() async {
+  Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
 
@@ -44,11 +46,16 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
   }
 
   @override
-  Future<UserCredential> signInWithGoogle() async {
+  Future<bool> signInWithGoogle() async {
     // Trigger the authentication flow
 
     try {
       final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        // cancelled login
+        print('Google Signin ERROR! googleUser: null!');
+        return null;
+      }
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -60,10 +67,29 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
       );
 
       // Once signed in, return the UserCredential
-      return await FirebaseAuth.instance.signInWithCredential(credential);
+      final authResult = await _firebaseAuth.signInWithCredential(credential);
+      final user = authResult.user;
+
+      await updateUserData(user);
+      return true;
     } catch (e) {
       print(e);
     }
-    return null;
+    return false;
+  }
+
+  @override
+  Future<DocumentSnapshot> updateUserData(User user) async {
+    final userRef = _firestore.collection('users').doc(user.uid);
+
+    userRef.set({
+      'uid': user.uid,
+      'email': user.email,
+      'photoURL': user.photoURL,
+      'lastSignIn': DateTime.now(),
+      'displayName': user.displayName,
+    });
+
+    return await userRef.get();
   }
 }
