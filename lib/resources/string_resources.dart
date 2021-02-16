@@ -11,6 +11,9 @@ class StringResources {
 
   static const String user = 'Usuario';
   static const String password = 'Contraseña';
+  static const String repeatPassword = 'Repetir contraseña';
+  static const String passwordsDoesntMatch = 'Las contraseñas no coinden';
+  static const String alreadyHaveAccount = 'Ya tienes una cuenta ¿Inicia sesion aqui?';
 
   static const String continueText = 'Continuar';
 
@@ -20,6 +23,11 @@ class StringResources {
   static const String lastName2 = 'Apellido materno';
   static const String phoneNumber = 'Número';
   static const String email = 'Correo';
+  static const String nameRequired = 'Nombre requerido';
+  static const String lastNameRequired = 'Apéllido paterno requerido';
+  static const String emailRequired = 'Correo requerido';
+  static const String passwordRequired = 'Contraseña requireda';
+  static const String repeatPasswordRequired = 'Repetir contraseña requerido';
 
   static const String incomes = 'Ingresos';
   static const String occasionalsExpenses = 'Ocasionales';
