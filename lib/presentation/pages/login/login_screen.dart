@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:medical_management_app/domain/bloc/auth_bloc.dart';
+import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
+import 'package:medical_management_app/presentation/pages/login/signup_screen.dart';
 import 'package:medical_management_app/resources/resources.dart';
 import 'package:medical_management_app/resources/sizes.dart';
+import 'package:medical_management_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: _buildForm(context),
     );
   }
@@ -26,9 +34,11 @@ class LoginScreen extends StatelessWidget {
             Column(
               children: [
                 TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(labelText: StringResources.email),
                 ),
                 TextField(
+                  controller: _passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: StringResources.password,
@@ -36,8 +46,19 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: Sizes.padding),
                 RaisedButton(
-                  child: Text(StringResources.logIn),
-                  onPressed: () {},
+                  child: Text(
+                    StringResources.logIn,
+                    style: Theme.of(context).textTheme.button.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
+                  ),
+                  onPressed: () async {
+                    if (_emailController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.emailRequired);
+                    if (_passwordController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.passwordRequired);
+                    final response = await authBloc.login(email: _emailController.text.trim(), password: _passwordController.text.trim());
+                    if (response) {
+                      Utils.navigateToReplacement(context, HomeScreen());
+                    }
+                    Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
+                  },
                 ),
                 // TextButton(
                 //   child: Text('Contraseña olvidada'),
@@ -62,12 +83,18 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   onPressed: () async {
-                    await authBloc.signInWithGoogle();
+                    final response = await authBloc.signInWithGoogle();
+                    if (response) {
+                      Utils.navigateToReplacement(context, HomeScreen());
+                    }
+                    Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
                   },
                 ),
                 TextButton(
                   child: Text(StringResources.register),
-                  onPressed: () {},
+                  onPressed: () {
+                    Utils.navigateTo(context, SignupScreen());
+                  },
                 ),
               ],
             ),

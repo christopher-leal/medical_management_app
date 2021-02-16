@@ -16,6 +16,9 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
   Future<bool> login({String email, String password}) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      final user = userCredential.user;
+      await updateUserData(user);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -23,6 +26,7 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
         print('Wrong password provided for that user.');
       }
     }
+    return false;
   }
 
   @override
@@ -31,9 +35,12 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
   }
 
   @override
-  Future<bool> signup({String email, String password}) async {
+  Future<bool> signup({String email, String password, String name, String lastname1, String lastname2}) async {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      final user = userCredential.user;
+      await updateUserData(user);
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -43,6 +50,7 @@ class AuthBloc extends AuthFirebaseInterface with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+    return false;
   }
 
   @override
