@@ -2,6 +2,7 @@ class StringResources {
   static const String appName = 'CoYns';
 
   static const String logIn = 'Iniciar sesión';
+  static const String logOut = 'Cerrar sesión';
   static const String register = 'Registrarse';
   static const String signInWighGoogle = 'Iniciar sesión con Google';
   static const String singUp = 'Crear cuenta';
@@ -34,4 +35,6 @@ class StringResources {
   static const String generalExpenses = 'Gastos generales';
   static const String darkMode = 'Modo oscuro';
   static const String help = 'Ayuda';
+
+  static const String somethingWentWrong = 'Algo salio mal, intenta nuevamente';
 }

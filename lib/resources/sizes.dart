@@ -13,4 +13,5 @@ class Sizes {
   static const double iconSizeXL = 68.0;
 
   static const double textPrefix = 16.0;
+  static const double textButton = 20.0;
 }
