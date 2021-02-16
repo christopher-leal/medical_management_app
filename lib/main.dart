@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,20 +17,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _border = UnderlineInputBorder(
-      borderRadius: BorderRadius.circular(Sizes.radius12),
       borderSide: BorderSide(color: MedicalManagementColors.accent),
     );
     final lightTheme = ThemeData(
         primaryColor: MedicalManagementColors.primary,
         accentColor: MedicalManagementColors.accent,
-        textTheme: TextTheme().apply(displayColor: MedicalManagementColors.primary, bodyColor: MedicalManagementColors.primary),
+        textTheme: TextTheme().apply(displayColor: MedicalManagementColors.primaryText, bodyColor: MedicalManagementColors.primaryText).copyWith(
+              headline6: TextStyle(color: MedicalManagementColors.primaryText),
+            ),
+        iconTheme: IconThemeData(color: MedicalManagementColors.accent),
+        primaryIconTheme: IconThemeData(color: MedicalManagementColors.accent),
         textSelectionColor: MedicalManagementColors.primary,
         cursorColor: MedicalManagementColors.primary,
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: EdgeInsets.symmetric(horizontal: Sizes.padding),
           labelStyle: TextStyle(color: MedicalManagementColors.primaryText, fontWeight: FontWeight.bold),
           border: _border,
-          enabledBorder: _border,
+          // enabledBorder: _border,
           focusedBorder: _border,
         ),
         buttonTheme: ButtonThemeData(
@@ -42,7 +46,7 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthBloc(FirebaseAuth.instance)),
+        ChangeNotifierProvider(create: (_) => AuthBloc(FirebaseAuth.instance, FirebaseFirestore.instance)),
         StreamProvider(create: (context) => context.read<AuthBloc>().authStateChanges),
       ],
       child: MaterialApp(
