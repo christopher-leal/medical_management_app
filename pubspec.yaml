@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   google_sign_in: "^4.5.1"
   font_awesome_flutter: ^8.11.0
+  cloud_firestore: ^0.16.0
 
 dev_dependencies:
   flutter_test:
