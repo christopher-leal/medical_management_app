@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:medical_management_app/domain/bloc/auth_bloc.dart';
+import 'package:medical_management_app/data/repositories/auth_bloc.dart';
 import 'package:medical_management_app/presentation/pages/login/login_screen.dart';
-import 'package:medical_management_app/resources/resources.dart';
+import 'package:medical_management_app/config/resources/resources.dart';
 import 'package:medical_management_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print('home');
     return Scaffold(
         appBar: AppBar(
           elevation: 0.0,

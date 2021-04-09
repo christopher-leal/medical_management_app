@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medical_management_app/domain/bloc/auth_bloc.dart';
+import 'package:medical_management_app/data/repositories/auth_bloc.dart';
 import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
 import 'package:medical_management_app/presentation/pages/login/signup_screen.dart';
-import 'package:medical_management_app/resources/resources.dart';
-import 'package:medical_management_app/resources/sizes.dart';
+import 'package:medical_management_app/config/resources/resources.dart';
+import 'package:medical_management_app/config/resources/sizes.dart';
 import 'package:medical_management_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
