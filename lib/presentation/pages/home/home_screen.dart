@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medical_management_app/data/repositories/auth_bloc.dart';
+import 'package:medical_management_app/data/repositories/auth_service.dart';
 import 'package:medical_management_app/presentation/pages/login/login_screen.dart';
 import 'package:medical_management_app/config/resources/resources.dart';
-import 'package:medical_management_app/utils/utils.dart';
+import 'package:medical_management_app/config/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -38,7 +38,7 @@ class _CreateDrawer extends StatelessWidget {
                 ListTile(
                   title: Text(StringResources.logOut),
                   onTap: () async {
-                    await context.read<AuthBloc>().logout();
+                    await context.read<AuthService>().logout();
                     Utils.navigateToReplacement(context, LoginScreen());
                   },
                 ),

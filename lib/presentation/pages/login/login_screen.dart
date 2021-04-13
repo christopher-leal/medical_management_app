@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:medical_management_app/data/repositories/auth_bloc.dart';
-import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
 import 'package:medical_management_app/presentation/pages/login/signup_screen.dart';
 import 'package:medical_management_app/config/resources/resources.dart';
 import 'package:medical_management_app/config/resources/sizes.dart';
-import 'package:medical_management_app/utils/utils.dart';
-import 'package:provider/provider.dart';
+import 'package:medical_management_app/config/utils/utils.dart';
 
 class LoginScreen extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -22,7 +19,6 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildForm(BuildContext context) {
-    final authBloc = context.read<AuthBloc>();
     return Center(
       child: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: Sizes.paddingXL),
@@ -51,13 +47,13 @@ class LoginScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.button.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
                   ),
                   onPressed: () async {
-                    if (_emailController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.emailRequired);
-                    if (_passwordController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.passwordRequired);
-                    final response = await authBloc.login(email: _emailController.text.trim(), password: _passwordController.text.trim());
-                    if (response) {
-                      Utils.navigateToReplacement(context, HomeScreen());
-                    }
-                    Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
+                    // if (_emailController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.emailRequired);
+                    // if (_passwordController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.passwordRequired);
+                    // final response = await authBloc.login(email: _emailController.text.trim(), password: _passwordController.text.trim());
+                    // if (response) {
+                    //   Utils.navigateToReplacement(context, HomeScreen());
+                    // }
+                    // Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
                   },
                 ),
                 // TextButton(
@@ -83,11 +79,11 @@ class LoginScreen extends StatelessWidget {
                     ],
                   ),
                   onPressed: () async {
-                    final response = await authBloc.signInWithGoogle();
-                    if (response) {
-                      Utils.navigateToReplacement(context, HomeScreen());
-                    }
-                    Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
+                    // final response = await authBloc.signInWithGoogle();
+                    // if (response) {
+                    //   Utils.navigateToReplacement(context, HomeScreen());
+                    // }
+                    // Utils.showSnackBar(_scaffoldKey, context, StringResources.somethingWentWrong);
                   },
                 ),
                 TextButton(

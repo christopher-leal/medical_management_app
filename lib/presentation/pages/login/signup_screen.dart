@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medical_management_app/data/repositories/auth_bloc.dart';
+import 'package:medical_management_app/data/repositories/auth_service.dart';
 import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
 import 'package:medical_management_app/config/resources/resources.dart';
-import 'package:medical_management_app/utils/utils.dart';
+import 'package:medical_management_app/config/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -79,7 +79,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     return Utils.showSnackBar(_scaffoldKey, context, StringResources.passwordsDoesntMatch);
 
                   final response =
-                      await context.read<AuthBloc>().signup(email: _emailController.text.trim(), password: _passwordController.text.trim());
+                      await context.read<AuthService>().signup(email: _emailController.text.trim(), password: _passwordController.text.trim());
                   if (response) {
                     Utils.navigateToReplacement(context, HomeScreen());
                   }
