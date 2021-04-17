@@ -14,6 +14,7 @@ import 'package:medical_management_app/presentation/pages/splash/splash_cubit.da
 import 'package:medical_management_app/presentation/pages/splash/splash_screen.dart';
 
 import 'config/theme/theme.dart';
+import 'dependency_injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,14 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<DbHelper>(create: (context) => DbHelper()),
-        RepositoryProvider<AuthRepository>(create: (context) => AuthService(FirebaseAuth.instance, FirebaseFirestore.instance)),
-        RepositoryProvider<MedicineRepository>(create: (context) => MedicineService(context.read())),
-        RepositoryProvider<SplashCubit>(create: (context) => SplashCubit(context.read())),
-        RepositoryProvider<HomeCubit>(create: (context) => HomeCubit()),
-        RepositoryProvider<MedicineCubit>(create: (context) => MedicineCubit(context.read())),
-      ],
+      providers: injectDependencies(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: lightTheme,
