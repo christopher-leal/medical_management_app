@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_management_app/data/repositories/auth_service.dart';
-import 'package:medical_management_app/presentation/pages/login/login_screen.dart';
-import 'package:medical_management_app/config/resources/resources.dart';
-import 'package:medical_management_app/config/utils/utils.dart';
-import 'package:medical_management_app/presentation/pages/medicine/medicine_list.dart';
-import 'package:provider/provider.dart';
 
 import 'home_cubit.dart';
 
@@ -19,13 +13,17 @@ class HomeScreen extends StatelessWidget {
           elevation: 0.0,
           backgroundColor: Colors.transparent,
         ),
-        // drawer: _CreateDrawer(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.add),
+        ),
+        drawer: _CreateDrawer(),
         body: BlocBuilder<HomeCubit, int>(
           builder: (context, state) {
             return IndexedStack(
               index: state,
               children: [
-                MedicineListScreen(),
+                // MedicineListScreen(),
               ],
             );
           },
@@ -47,13 +45,13 @@ class _CreateDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                ListTile(
-                  title: Text(StringResources.logOut),
-                  onTap: () async {
-                    await context.read<AuthService>().logout();
-                    Utils.navigateToReplacement(context, LoginScreen());
-                  },
-                ),
+                // ListTile(
+                //   title: Text(StringResources.logOut),
+                //   onTap: () async {
+                //     await context.read<AuthService>().logout();
+                //     Utils.navigateToReplacement(context, LoginScreen());
+                //   },
+                // ),
               ],
             ),
           ),
