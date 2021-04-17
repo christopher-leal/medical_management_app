@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_management_app/presentation/pages/home/home_screen.dart';
 import 'package:medical_management_app/presentation/pages/login/login_screen.dart';
+import 'package:medical_management_app/presentation/pages/medicine/medicines_screen.dart';
 import 'package:medical_management_app/presentation/pages/splash/splash_cubit.dart';
 import 'package:medical_management_app/config/utils/utils.dart';
 
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state == SplashState.logged_in) {
-            return Utils.navigateToReplacement(context, HomeScreen());
+            return Utils.navigateToReplacement(context, MedicinesScreen());
           }
           return Utils.navigateToReplacement(context, LoginScreen());
         },
