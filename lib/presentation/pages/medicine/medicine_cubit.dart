@@ -1,11 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medical_management_app/domain/repositories/medicine_repository.dart';
+import 'package:medical_management_app/domain/entities/medicine.dart';
+import 'package:medical_management_app/domain/usecases/medicines_usecase.dart';
 
-class MedicineCubit extends Cubit<List> {
-  MedicineCubit(this._medicineRepository) : super([]);
-  final MedicineRepository _medicineRepository;
+class MedicinesState {
+  const MedicinesState(this.medicines, {this.isLoading = false});
+  final List<Medicine> medicines;
+  final bool isLoading;
+}
+
+class MedicineCubit extends Cubit<MedicinesState> {
+  MedicineCubit(this._useCase) : super(MedicinesState([]));
+  final MedicinesUseCase _useCase;
 
   Future<void> getMedicines() async {
-    await _medicineRepository.getMedicineList();
+    emit(MedicinesState(state.medicines, isLoading: true));
+    final medicines = await _useCase.getMedicines();
+    emit(MedicinesState([...state.medicines, ...medicines]));
   }
 }
