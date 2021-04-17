@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medical_management_app/app_theme_cubit.dart';
 import 'package:medical_management_app/presentation/pages/splash/splash_screen.dart';
 
 import 'config/theme/theme.dart';
@@ -17,11 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: injectDependencies(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        title: 'MedicalManagementApp',
-        home: SplashScreen(),
+      child: BlocProvider(
+        create: (context) => AppThemeCubit(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          title: 'MedicalManagementApp',
+          home: SplashScreen(),
+        ),
       ),
     );
   }
