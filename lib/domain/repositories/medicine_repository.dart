@@ -1,3 +1,5 @@
+import 'package:medical_management_app/domain/entities/medicine.dart';
+
 abstract class MedicineRepository {
-  Future getMedicineList();
+  Future<List<Medicine>> getMedicineList();
 }
