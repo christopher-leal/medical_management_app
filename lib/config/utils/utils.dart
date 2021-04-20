@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Utils {
-  static void navigateTo(BuildContext context, Widget page) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+  static Future navigateTo(BuildContext context, Widget page) {
+    return Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
   }
 
   static void navigateToReplacement(BuildContext context, Widget page) {
