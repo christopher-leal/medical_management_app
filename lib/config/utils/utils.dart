@@ -35,9 +35,10 @@ class Utils {
     if (string != null) {
       DateTime dt0 = DateTime.parse(string);
       return DateFormat('d MMM y', 'es_MX').format(dt0);
+    } else if (datetime != null) {
+      return DateFormat('d MMM y', 'es_MX').format(datetime);
     }
-
-    return DateFormat('d MMM y', 'es_MX').format(datetime);
+    return '';
   }
 
   static void dismissKeyboard(BuildContext context) {
