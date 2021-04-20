@@ -4,10 +4,10 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:medical_management_app/config/utils/utils.dart';
 import 'package:medical_management_app/domain/entities/medicine.dart';
 
-import 'new_medicine_cubit.dart';
+import 'set_medicine_cubit.dart';
 
-class NewMedicineScreen extends StatelessWidget {
-  NewMedicineScreen({Key key, this.medicine}) : super(key: key);
+class SetMedicineScreen extends StatelessWidget {
+  SetMedicineScreen({Key key, this.medicine}) : super(key: key);
   final Medicine medicine;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 

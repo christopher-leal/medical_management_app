@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medical_management_app/config/utils/utils.dart';
 import 'package:medical_management_app/presentation/pages/medicine/medicine_cubit.dart';
-import 'package:medical_management_app/presentation/pages/medicine/new_medicine_screen.dart';
+import 'package:medical_management_app/presentation/pages/medicine/set_medicine_screen.dart';
 
 class MedicinesScreen extends StatelessWidget {
   @override
@@ -18,7 +18,7 @@ class MedicinesScreen extends StatelessWidget {
           builder: (context) {
             return FloatingActionButton(
               onPressed: () async {
-                final isSuccess = (await Utils.navigateTo(context, NewMedicineScreen()) ?? false) as bool;
+                final isSuccess = (await Utils.navigateTo(context, SetMedicineScreen()) ?? false) as bool;
                 if (isSuccess) {
                   context.read<MedicineCubit>().getMedicines();
                 }
@@ -40,7 +40,7 @@ class MedicinesScreen extends StatelessWidget {
                 final medicine = state.medicines[index];
                 return ListTile(
                   onTap: () async {
-                    final isSuccess = (await Utils.navigateTo(context, NewMedicineScreen(medicine: medicine)) ?? false) as bool;
+                    final isSuccess = (await Utils.navigateTo(context, SetMedicineScreen(medicine: medicine)) ?? false) as bool;
                     if (isSuccess) {
                       context.read<MedicineCubit>().getMedicines();
                     }
