@@ -1,22 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medical_management_app/config/utils/utils.dart';
 import 'package:medical_management_app/presentation/pages/medicine/medicine_cubit.dart';
+import 'package:medical_management_app/presentation/pages/medicine/new_medicine_screen.dart';
 
 class MedicinesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Medicinas'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
-      body: BlocProvider(
-        create: (context) => MedicineCubit(context.read())..getMedicines(),
-        child: BlocBuilder<MedicineCubit, MedicinesState>(
+    return BlocProvider(
+      create: (context) => MedicineCubit(context.read())..getMedicines(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Medicinas'),
+        ),
+        floatingActionButton: Builder(
+          builder: (context) {
+            return FloatingActionButton(
+              onPressed: () async {
+                final isSuccess = (await Utils.navigateTo(context, NewMedicineScreen()) ?? false) as bool;
+                if (isSuccess) {
+                  context.read<MedicineCubit>().getMedicines();
+                }
+              },
+              child: const Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+            );
+          },
+        ),
+        body: BlocBuilder<MedicineCubit, MedicinesState>(
           builder: (context, state) {
             if (state.isLoading) return const Center(child: CircularProgressIndicator());
             return ListView.builder(
