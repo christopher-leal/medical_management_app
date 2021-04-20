@@ -42,7 +42,6 @@ class Box {
         "medicineId": medicineId,
         "amount": amount,
         "expirationDate": expirationDate,
-        "createdAt": createdAt,
         "updatedAt": updatedAt,
       };
 }
