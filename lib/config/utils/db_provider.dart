@@ -1,3 +1,4 @@
+import 'package:medical_management_app/domain/entities/box.dart';
 import 'package:medical_management_app/domain/entities/medicine.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -67,12 +68,41 @@ class DBProvider {
   Future<List<Medicine>> getMedicines() async {
     final db = await database;
     var res = await db.query('$medicinesTableName');
-    List<Medicine> medicines = res.isNotEmpty ? res.map((medicine) => Medicine.fromJson(medicine)).toList() : [];
+    final List<Medicine> medicines = res.isNotEmpty ? res.map((medicine) => Medicine.fromJson(medicine)).toList() : [];
     return medicines;
   }
 
   Future<int> deleteMedicine(int id) async {
     final db = await database;
     return await db.delete('$medicinesTableName', where: 'id=?', whereArgs: [id]);
+  }
+
+  Future<bool> setBoxes(List<Box> boxes) async {
+    final saves = <int>[];
+    for (final box in boxes) {
+      saves.add(await _setBox(box));
+    }
+    return saves.length > 0;
+  }
+
+  Future<int> _setBox(Box box) async {
+    final db = await database;
+
+    if (box.id != null) {
+      return await db.update('$boxesTableName', box.toJson(), where: 'id=?', whereArgs: [box.id]);
+    }
+    return await db.insert('$boxesTableName', box.toJson());
+  }
+
+  Future<List<Box>> getBoxes() async {
+    final db = await database;
+    var res = await db.query('$boxesTableName');
+    final List<Box> boxes = res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
+    return boxes;
+  }
+
+  Future<int> deleteBox(int id) async {
+    final db = await database;
+    return await db.delete('$boxesTableName', where: 'id=?', whereArgs: [id]);
   }
 }
