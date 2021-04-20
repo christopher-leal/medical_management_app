@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 Box boxFromJson(String str) => Box.fromJson(json.decode(str));
 
 String boxToJson(Box data) => json.encode(data.toJson());
@@ -20,11 +22,12 @@ class Box {
 
   final int id;
   final int medicineId;
-  final double amount;
-  final String expirationDate;
+  double amount;
+  String expirationDate;
   final String createdAt;
   final String updatedAt;
-
+  final amountController = TextEditingController();
+  final dateController = TextEditingController();
   factory Box.fromJson(Map<String, dynamic> json) => Box(
         id: json["id"],
         medicineId: json["medicineId"],
