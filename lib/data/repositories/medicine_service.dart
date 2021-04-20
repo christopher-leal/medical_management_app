@@ -10,4 +10,9 @@ class MedicineService extends MedicineRepository {
   Future<List<Medicine>> getMedicineList() async {
     return await _db.getMedicines();
   }
+
+  @override
+  Future<int> setMedicine(Medicine medicine) async {
+    return await _db.setMedicine(medicine);
+  }
 }
