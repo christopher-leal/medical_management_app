@@ -34,11 +34,19 @@ class MedicinesScreen extends StatelessWidget {
           builder: (context, state) {
             if (state.isLoading) return const Center(child: CircularProgressIndicator());
             return ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: state.medicines.length,
               itemBuilder: (BuildContext context, int index) {
                 final medicine = state.medicines[index];
                 return ListTile(
+                  onTap: () async {
+                    final isSuccess = (await Utils.navigateTo(context, NewMedicineScreen(medicine: medicine)) ?? false) as bool;
+                    if (isSuccess) {
+                      context.read<MedicineCubit>().getMedicines();
+                    }
+                  },
                   title: Text(medicine.name),
+                  trailing: Text(Utils.formatDateNumbers(string: medicine.createdAt)),
                 );
               },
             );
