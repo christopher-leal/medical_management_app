@@ -54,7 +54,8 @@ class DBProvider {
   Future<int> setMedicine(Medicine medicine) async {
     final db = await database;
     if (medicine.id != null) {
-      return await db.update('$medicinesTableName', medicine.toJson(), where: 'id=?', whereArgs: [medicine.id]);
+      await db.update('$medicinesTableName', medicine.toJson(), where: 'id=?', whereArgs: [medicine.id]);
+      return medicine.id;
     }
     return await db.insert('$medicinesTableName', medicine.toJson());
   }
@@ -89,7 +90,8 @@ class DBProvider {
     final db = await database;
 
     if (box.id != null) {
-      return await db.update('$boxesTableName', box.toJson(), where: 'id=?', whereArgs: [box.id]);
+      await db.update('$boxesTableName', box.toJson(), where: 'id=?', whereArgs: [box.id]);
+      return box.id;
     }
     return await db.insert('$boxesTableName', box.toJson());
   }
@@ -97,6 +99,13 @@ class DBProvider {
   Future<List<Box>> getBoxes() async {
     final db = await database;
     var res = await db.query('$boxesTableName');
+    final List<Box> boxes = res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
+    return boxes;
+  }
+
+  Future<List<Box>> getBoxesById(int medicineId) async {
+    final db = await database;
+    var res = await db.query('$boxesTableName', where: 'medicineId=?', whereArgs: [medicineId]);
     final List<Box> boxes = res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
     return boxes;
   }
