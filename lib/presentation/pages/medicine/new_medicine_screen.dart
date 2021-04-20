@@ -2,20 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:medical_management_app/config/utils/utils.dart';
+import 'package:medical_management_app/domain/entities/medicine.dart';
 
 import 'new_medicine_cubit.dart';
 
 class NewMedicineScreen extends StatelessWidget {
+  NewMedicineScreen({Key key, this.medicine}) : super(key: key);
+  final Medicine medicine;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => NewMedicineCubit(context.read(), context.read()),
+      create: (context) => NewMedicineCubit(context.read(), context.read(), context.read())..init(medicine),
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Nueva medicina'),
+          title: medicine != null ? const Text('Editar medicina') : const Text('Nueva medicina'),
         ),
         floatingActionButton: Builder(
           builder: (context) {
@@ -111,7 +115,7 @@ class NewMedicineScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-                            if (index > 0)
+                            if (state.boxes.length > 1)
                               IconButton(
                                 icon: Icon(Icons.remove),
                                 onPressed: () {
