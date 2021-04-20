@@ -13,7 +13,7 @@ class MedicineCubit extends Cubit<MedicinesState> {
   final MedicinesUseCase _useCase;
 
   Future<void> getMedicines() async {
-    emit(MedicinesState(state.medicines, isLoading: true));
+    emit(MedicinesState([], isLoading: true));
     final medicines = await _useCase.getMedicines();
     emit(MedicinesState([...state.medicines, ...medicines]));
   }
