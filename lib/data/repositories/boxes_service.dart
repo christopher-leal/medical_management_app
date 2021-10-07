@@ -17,7 +17,7 @@ class BoxesService extends BoxesRepository {
   }
 
   @override
-  Future<List<Box>> getBoxesById(int medicineId) async {
+  Future<List<Box>> getBoxesById(int? medicineId) async {
     return await _dbProvider.getBoxesById(medicineId);
   }
 }

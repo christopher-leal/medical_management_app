@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                 RaisedButton(
                   child: Text(
                     StringResources.logIn,
-                    style: Theme.of(context).textTheme.button.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
+                    style: Theme.of(context).textTheme.button!.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
                   ),
                   onPressed: () async {
                     // if (_emailController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.emailRequired);

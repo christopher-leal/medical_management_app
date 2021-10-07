@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>478503612433-m1p58f47ss4a38q1obro9lmfv3hfdms0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.478503612433-m1p58f47ss4a38q1obro9lmfv3hfdms0</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>478503612433-2e040ecgt9b1k8d0vq71pu2t93jtafjo.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKBEkOJNYPJnVIRj2k466L9hSsWLw3_Ik</string>
+	<key>GCM_SENDER_ID</key>
+	<string>478503612433</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.cleal-codev.medical-management-app</string>
+	<key>PROJECT_ID</key>
+	<string>medical-management-app</string>
+	<key>STORAGE_BUCKET</key>
+	<string>medical-management-app.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:478503612433:ios:6e87221d10e4499da001b0</string>
+</dict>
+</plist>

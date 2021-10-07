@@ -45,7 +45,7 @@ class MedicinesScreen extends StatelessWidget {
                       context.read<MedicineCubit>().getMedicines();
                     }
                   },
-                  title: Text(medicine.name),
+                  title: Text(medicine.name!),
                   trailing: Text(Utils.formatDateNumbers(string: medicine.createdAt)),
                 );
               },

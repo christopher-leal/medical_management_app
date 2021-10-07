@@ -10,8 +10,8 @@ import 'package:medical_management_app/domain/usecases/save_medicine_usecase.dar
 class NewMedicineState {
   NewMedicineState(this.boxes, this.medicine, {this.error, this.isLoading = false, this.isSuccess = false});
   final List<Box> boxes;
-  final Medicine medicine;
-  final String error;
+  final Medicine? medicine;
+  final String? error;
   final bool isLoading;
   final bool isSuccess;
 }
@@ -47,7 +47,7 @@ class NewMedicineCubit extends Cubit<NewMedicineState> {
     }
     emit(NewMedicineState([...state.boxes], state.medicine, isLoading: true));
     final medicine = state.medicine != null
-        ? Medicine(id: state.medicine.id, name: medicineNameController.text.trim(), updatedAt: DateTime.now().toString())
+        ? Medicine(id: state.medicine!.id, name: medicineNameController.text.trim(), updatedAt: DateTime.now().toString())
         : Medicine(name: medicineNameController.text.trim(), updatedAt: DateTime.now().toString());
     final medicineId = await _medicineUseCase.saveMedicine(medicine);
     final boxes = state.boxes
@@ -62,10 +62,10 @@ class NewMedicineCubit extends Cubit<NewMedicineState> {
     emit(NewMedicineState([...state.boxes], state.medicine, error: 'Ha ocurrido un error, intente de nuevo'));
   }
 
-  Future<void> init(Medicine medicine) async {
+  Future<void> init(Medicine? medicine) async {
     if (medicine != null) {
       emit(NewMedicineState([], null, isLoading: true));
-      medicineNameController.text = medicine.name;
+      medicineNameController.text = medicine.name!;
       final boxes = await _getBoxesUseCase.getBoxes(medicine.id);
       for (var item in boxes) {
         item.amountController.text = item.amount.toString();

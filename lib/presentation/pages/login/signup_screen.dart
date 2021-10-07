@@ -66,7 +66,7 @@ class _SignupScreenState extends State<SignupScreen> {
               RaisedButton(
                 child: Text(
                   StringResources.register,
-                  style: Theme.of(context).textTheme.button.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
+                  style: Theme.of(context).textTheme.button!.copyWith(fontSize: Sizes.textPrefix, color: MedicalManagementColors.white),
                 ),
                 onPressed: () async {
                   if (_nameController.text.trim().isEmpty) return Utils.showSnackBar(_scaffoldKey, context, StringResources.nameRequired);

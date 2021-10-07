@@ -20,12 +20,12 @@ class Box {
     this.updatedAt,
   });
 
-  final int id;
-  final int medicineId;
-  double amount;
-  String expirationDate;
-  final String createdAt;
-  final String updatedAt;
+  final int? id;
+  final int? medicineId;
+  double? amount;
+  String? expirationDate;
+  final String? createdAt;
+  final String? updatedAt;
   final amountController = TextEditingController();
   final dateController = TextEditingController();
   factory Box.fromJson(Map<String, dynamic> json) => Box(

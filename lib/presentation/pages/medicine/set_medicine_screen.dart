@@ -7,8 +7,8 @@ import 'package:medical_management_app/domain/entities/medicine.dart';
 import 'set_medicine_cubit.dart';
 
 class SetMedicineScreen extends StatelessWidget {
-  SetMedicineScreen({Key key, this.medicine}) : super(key: key);
-  final Medicine medicine;
+  SetMedicineScreen({Key? key, this.medicine}) : super(key: key);
+  final Medicine? medicine;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -37,7 +37,7 @@ class SetMedicineScreen extends StatelessWidget {
           child: BlocConsumer<NewMedicineCubit, NewMedicineState>(
             listener: (context, state) {
               if (state.error != null) {
-                Utils.showSnackBar(_scaffoldKey, context, state.error);
+                Utils.showSnackBar(_scaffoldKey, context, state.error!);
                 return;
               }
               if (state.isSuccess) {

@@ -5,7 +5,7 @@ class GetBoxesUseCase {
   GetBoxesUseCase(this._repository);
   final BoxesRepository _repository;
 
-  Future<List<Box>> getBoxes(int medicineId) async {
+  Future<List<Box>> getBoxes(int? medicineId) async {
     return await _repository.getBoxesById(medicineId);
   }
 }

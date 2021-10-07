@@ -8,13 +8,13 @@ class AuthService extends AuthRepository {
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firestore;
 
-  Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   @override
-  Future<bool> login({String email, String password}) async {
+  Future<bool> login({String? email, String? password}) async {
     try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      final user = userCredential.user;
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!);
+      final user = userCredential.user!;
       await updateUserData(user);
       return true;
     } on FirebaseAuthException catch (e) {
@@ -33,10 +33,10 @@ class AuthService extends AuthRepository {
   }
 
   @override
-  Future<bool> signup({String email, String password, String name, String lastname1, String lastname2}) async {
+  Future<bool> signup({String? email, String? password, String? name, String? lastname1, String? lastname2}) async {
     try {
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      final user = userCredential.user;
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!);
+      final user = userCredential.user!;
       await updateUserData(user);
       return true;
     } on FirebaseAuthException catch (e) {
@@ -52,11 +52,11 @@ class AuthService extends AuthRepository {
   }
 
   @override
-  Future<bool> signInWithGoogle() async {
+  Future<bool?> signInWithGoogle() async {
     // Trigger the authentication flow
 
     try {
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         // cancelled login
         print('Google Signin ERROR! googleUser: null!');
@@ -70,11 +70,11 @@ class AuthService extends AuthRepository {
       final GoogleAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
-      );
+      ) as GoogleAuthCredential;
 
       // Once signed in, return the UserCredential
       final authResult = await _firebaseAuth.signInWithCredential(credential);
-      final user = authResult.user;
+      final user = authResult.user!;
 
       await updateUserData(user);
       return true;

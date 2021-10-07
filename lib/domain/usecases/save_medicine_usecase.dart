@@ -5,7 +5,7 @@ class SaveMedicineUseCase {
   SaveMedicineUseCase(this._repository);
   final MedicineRepository _repository;
 
-  Future<int> saveMedicine(Medicine medicine) async {
+  Future<int?> saveMedicine(Medicine medicine) async {
     return await _repository.setMedicine(medicine);
   }
 }

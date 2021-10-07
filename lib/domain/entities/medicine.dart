@@ -16,10 +16,10 @@ class Medicine {
     this.updatedAt,
   });
 
-  final int id;
-  final String name;
-  final String createdAt;
-  final String updatedAt;
+  final int? id;
+  final String? name;
+  final String? createdAt;
+  final String? updatedAt;
 
   factory Medicine.fromJson(Map<String, dynamic> json) => Medicine(
         id: json["id"],

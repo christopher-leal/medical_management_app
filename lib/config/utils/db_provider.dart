@@ -13,14 +13,14 @@ class DBProvider {
   factory DBProvider() => _instance;
   DBProvider._();
 
-  static Database _database;
-  Future<Database> get database async {
+  static Database? _database;
+  Future<Database?> get database async {
     if (_database != null) return _database;
     _database = await initDatabase();
     return _database;
   }
 
-  Future<Database> initDatabase() async {
+  Future<Database?> initDatabase() async {
     final documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, dbName);
     print(path);
@@ -51,67 +51,76 @@ class DBProvider {
     );
   }
 
-  Future<int> setMedicine(Medicine medicine) async {
+  Future<int?> setMedicine(Medicine medicine) async {
     final db = await database;
     if (medicine.id != null) {
-      await db.update('$medicinesTableName', medicine.toJson(), where: 'id=?', whereArgs: [medicine.id]);
+      await db!.update('$medicinesTableName', medicine.toJson(),
+          where: 'id=?', whereArgs: [medicine.id]);
       return medicine.id;
     }
-    return await db.insert('$medicinesTableName', medicine.toJson());
+    return await db!.insert('$medicinesTableName', medicine.toJson());
   }
 
-  Future<Medicine> getMedicineById(int id) async {
-    final db = await database;
-    final res = await db.query('$medicinesTableName', where: 'id=?', whereArgs: [id]);
+  Future<Medicine?> getMedicineById(int id) async {
+    final db = await (database);
+    final res =
+        await db!.query('$medicinesTableName', where: 'id=?', whereArgs: [id]);
     return res.isNotEmpty ? Medicine.fromJson(res.first) : null;
   }
 
   Future<List<Medicine>> getMedicines() async {
-    final db = await database;
-    var res = await db.query('$medicinesTableName');
-    final List<Medicine> medicines = res.isNotEmpty ? res.map((medicine) => Medicine.fromJson(medicine)).toList() : [];
+    final db = await (database);
+    var res = await db!.query('$medicinesTableName');
+    final List<Medicine> medicines = res.isNotEmpty
+        ? res.map((medicine) => Medicine.fromJson(medicine)).toList()
+        : [];
     return medicines;
   }
 
   Future<int> deleteMedicine(int id) async {
-    final db = await database;
-    return await db.delete('$medicinesTableName', where: 'id=?', whereArgs: [id]);
+    final db = await (database);
+    return await db!
+        .delete('$medicinesTableName', where: 'id=?', whereArgs: [id]);
   }
 
   Future<bool> setBoxes(List<Box> boxes) async {
-    final saves = <int>[];
+    final saves = <int?>[];
     for (final box in boxes) {
       saves.add(await _setBox(box));
     }
     return saves.length > 0;
   }
 
-  Future<int> _setBox(Box box) async {
+  Future<int?> _setBox(Box box) async {
     final db = await database;
 
     if (box.id != null) {
-      await db.update('$boxesTableName', box.toJson(), where: 'id=?', whereArgs: [box.id]);
+      await db!.update('$boxesTableName', box.toJson(),
+          where: 'id=?', whereArgs: [box.id]);
       return box.id;
     }
-    return await db.insert('$boxesTableName', box.toJson());
+    return await db!.insert('$boxesTableName', box.toJson());
   }
 
   Future<List<Box>> getBoxes() async {
-    final db = await database;
-    var res = await db.query('$boxesTableName');
-    final List<Box> boxes = res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
+    final db = await (database);
+    var res = await db!.query('$boxesTableName');
+    final List<Box> boxes =
+        res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
     return boxes;
   }
 
-  Future<List<Box>> getBoxesById(int medicineId) async {
-    final db = await database;
-    var res = await db.query('$boxesTableName', where: 'medicineId=?', whereArgs: [medicineId]);
-    final List<Box> boxes = res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
+  Future<List<Box>> getBoxesById(int? medicineId) async {
+    final db = await (database);
+    var res = await db!.query('$boxesTableName',
+        where: 'medicineId=?', whereArgs: [medicineId]);
+    final List<Box> boxes =
+        res.isNotEmpty ? res.map((box) => Box.fromJson(box)).toList() : [];
     return boxes;
   }
 
   Future<int> deleteBox(int id) async {
-    final db = await database;
-    return await db.delete('$boxesTableName', where: 'id=?', whereArgs: [id]);
+    final db = await (database);
+    return await db!.delete('$boxesTableName', where: 'id=?', whereArgs: [id]);
   }
 }

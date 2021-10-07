@@ -12,7 +12,7 @@ class Utils {
 
   static void showSnackBar(GlobalKey<ScaffoldState> scaffoldKey, BuildContext context, String text) {
     final snackbar = SnackBar(content: Text(text));
-    scaffoldKey.currentState.showSnackBar(snackbar);
+    scaffoldKey.currentState!.showSnackBar(snackbar);
   }
 
   static String dateWithoutTime(DateTime date) {
@@ -21,7 +21,7 @@ class Utils {
     return formatted;
   }
 
-  static String formatDate({String string, DateTime datetime}) {
+  static String formatDate({String? string, DateTime? datetime}) {
     if (string != null) {
       DateTime dt0 = DateTime.parse(string);
       return DateFormat.yMMMMd('es_MX').format(dt0);
@@ -31,7 +31,7 @@ class Utils {
     return "";
   }
 
-  static String formatDateNumbers({String string, DateTime datetime}) {
+  static String formatDateNumbers({String? string, DateTime? datetime}) {
     if (string != null) {
       DateTime dt0 = DateTime.parse(string);
       return DateFormat('d MMM y', 'es_MX').format(dt0);
